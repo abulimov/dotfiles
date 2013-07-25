@@ -1,0 +1,10 @@
+[defaults]
+hostfile = ./hosts
+remote_tmp = $HOME/.ansible/tmp
+transport = ssh
+sudo_user = root
+remote_user = root
+module_name = command
+[ssh_connection]
+ssh_args=-o ControlMaster=auto -o ControlPersist=60s -o ControlPath=/tmp/ansible-ssh-%h-%p-%r
+scp_if_ssh = True

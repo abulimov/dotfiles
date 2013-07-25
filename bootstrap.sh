@@ -58,6 +58,16 @@ link_files () {
   fi
 }
 
+wget_file () {
+  out=$(wget -q "$1" -O "$2" 2>&1)
+  if [ 0 -eq $? ]; then
+    success "downloaded $1 to $2"
+  else
+    fail "error downloading $1 to $2: $out"
+  fi
+}
+
+
 switch_to_zsh() {
   if [[ "$SHELL" = *zsh ]]; then
     info "using zsh"
@@ -146,6 +156,33 @@ install_my_zsh_theme() {
   fi
 }
 
+install_konsole_solarized_scheme() {
+  info 'installing Konsole Solarized schemes'
+  if [ -d "$HOME/.kde4" ]; then
+    DIR="$HOME/.kde4"
+  elif [ -d "$HOME/.kde" ]; then
+    DIR="$HOME/.kde"
+  else
+    exit 3
+  fi
+  DIR+="/share/apps/konsole"
+  dark_dest="$DIR/Solarized Dark.colorscheme"
+  dark_url="https://raw.github.com/phiggins/konsole-colors-solarized/master/Solarized Dark.colorscheme"
+  light_dest="$DIR/Solarized Light.colorscheme"
+  light_url="https://raw.github.com/phiggins/konsole-colors-solarized/master/Solarized Light.colorscheme"
+
+  if [ ! -f "$dark_dest" ]; then
+    wget_file "$dark_url" "$dark_dest"
+  else
+    info "found $dark_dest"
+  fi
+  if [ ! -f "$light_dest" ]; then
+    wget_file "$light_url" "$light_dest"
+  else
+    info "found $light_dest"
+  fi
+}
+
 install_dotfiles () {
   info 'installing dotfiles'
   overwrite_all=false
@@ -212,6 +249,7 @@ done
 install_oh_my_zsh
 switch_to_zsh
 install_my_zsh_theme "$zsh_theme"
+install_konsole_solarized_scheme
 install_dotfiles
 
 echo 'done!'
