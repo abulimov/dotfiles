@@ -24,6 +24,7 @@ NeoBundle 'Shougo/vimproc', {
 "
 NeoBundle 'tpope/vim-sensible'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-surround'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'bling/vim-bufferline'
 NeoBundle 'scrooloose/syntastic'
@@ -40,12 +41,15 @@ NeoBundleCheck
 let g:haddock_browser = "/usr/bin/firefox"
 let g:ghc = "/usr/bin/ghc"
 nnoremap <C-g> :SyntasticCheck<CR>
-"nnoremap <C-p> :!ansible-playbook -i hosts %
 
-"CtrlP
+"Unite
+let g:unite_source_history_yank_enable=1
 nnoremap <C-p> :Unite file_rec/async -start-insert<cr>
-"let g:ctrlp_map = '<c-p>'
-"let g:ctrlp_working_path_mode = 'ra'
+nnoremap <space>/ :Unite grep:.<cr>
+nnoremap <space>y :Unite history/yank<cr>
+nnoremap <space>n :bn<cr>
+nnoremap <space>p :bp<cr>
+nnoremap <space>d :bd<cr>
 
 " color theme
 colorscheme solarized
@@ -58,10 +62,6 @@ set hlsearch "highlight search
 set tabstop=4
 set shiftwidth=4  " number of spaces to use for autoindenting
 set expandtab     "convert tabs to spaces
-"set modeline
-"set modelines=5
-"set copyindent    " copy the previous indentation on autoindenting
-"set number        " always show line numbers
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 set ignorecase    " ignore case when searching
 set smartcase     " ignore case if search pattern is all lowercase,
@@ -84,10 +84,10 @@ let g:airline_theme='solarized'
 
 " syntastic
 let g:syntastic_check_on_open=0
-"let g:syntastic_loc_list_height=5
-"let g:syntastic_auto_loc_list=1
 let g:syntastic_enable_signs=1
 let g:syntastic_mode_map = { 'mode': 'active' }
+"make *.md act as *.markdown
+au BufRead,BufNewFile *.md set filetype=markdown
 
 
 "map russian keys
