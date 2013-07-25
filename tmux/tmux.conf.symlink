@@ -1,5 +1,4 @@
 set -g base-index 1
-#set-option -g prefix C-a
 setw -g mode-keys vi
 bind h select-pane -L
 bind j select-pane -D

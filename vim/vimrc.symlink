@@ -28,6 +28,8 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'bling/vim-bufferline'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'evanmiller/nginx-vim-syntax'
+NeoBundle 'altercation/vim-colors-solarized'
 
 filetype plugin indent on     " Required!
 
