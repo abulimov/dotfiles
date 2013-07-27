@@ -271,6 +271,7 @@ install_dotfiles () {
 done
 }
 
+setup_gitconfig
 install_oh_my_zsh
 switch_to_zsh
 install_my_zsh_theme "$zsh_theme"
