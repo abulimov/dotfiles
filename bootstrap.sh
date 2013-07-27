@@ -45,7 +45,7 @@ setup_gitconfig () {
 
     success 'gitconfig'
   else
-    info 'found gitconfig'
+    success 'found gitconfig'
   fi
 }
 
@@ -59,7 +59,7 @@ link_files () {
 }
 
 wget_file () {
-  out=$(wget -q "$1" -O "$2" 2>&1)
+  out=$(wget "$1" -O "$2" 2>&1)
   if [ 0 -eq $? ]; then
     success "downloaded $1 to $2"
   else
@@ -70,7 +70,7 @@ wget_file () {
 
 switch_to_zsh() {
   if [[ "$SHELL" = *zsh ]]; then
-    info "using zsh"
+    success "using zsh"
   else
     user "switch to zsh? (recommended) [ynq] "
     read -n 1 choise
@@ -88,9 +88,10 @@ switch_to_zsh() {
     esac
   fi
 }
+
 install_oh_my_zsh() {
   if [ -d "$HOME/.oh-my-zsh" ]; then
-    info "found ~/.oh-my-zsh"
+    success "found ~/.oh-my-zsh"
   else
     user "install oh-my-zsh? [ynq] "
     read -n 1 choise
@@ -108,6 +109,7 @@ install_oh_my_zsh() {
     esac
   fi
 }
+
 install_my_zsh_theme() {
   theme="$1"
   src="$ROOT/zsh/$theme.zsh-theme"
@@ -157,7 +159,7 @@ install_my_zsh_theme() {
 }
 
 install_konsole_solarized_scheme() {
-  info 'installing Konsole Solarized schemes'
+  info 'installing Konsole Solarized colorschemes'
   if [ -d "$HOME/.kde4" ]; then
     DIR="$HOME/.kde4"
   elif [ -d "$HOME/.kde" ]; then
@@ -174,12 +176,35 @@ install_konsole_solarized_scheme() {
   if [ ! -f "$dark_dest" ]; then
     wget_file "$dark_url" "$dark_dest"
   else
-    info "found $dark_dest"
+    success "found $dark_dest"
   fi
   if [ ! -f "$light_dest" ]; then
     wget_file "$light_url" "$light_dest"
   else
-    info "found $light_dest"
+    success "found $light_dest"
+  fi
+}
+
+install_vim_neobundle() {
+  if [ -d "$HOME/.vim/bundle/neobundle.vim" ]; then
+    success "found neobundle"
+  else
+    user "install neobundle? [ynq] "
+    read -n 1 choise
+    case "$choise" in
+      y )
+        info "installing nebundle"
+        mkdir -p "$HOME/.vim/bundle"
+        git clone git://github.com/Shougo/neobundle.vim "$HOME/.vim/bundle/neobundle.vim"
+        mkdir -p "$HOME/.vim/backups"
+        ;;
+      q )
+        exit
+        ;;
+      * )
+        info "skipping neobundle, you will need to change ~/.vimrc"
+        ;;
+    esac
   fi
 }
 
@@ -250,6 +275,7 @@ install_oh_my_zsh
 switch_to_zsh
 install_my_zsh_theme "$zsh_theme"
 install_konsole_solarized_scheme
+install_vim_neobundle
 install_dotfiles
 
 echo 'done!'
