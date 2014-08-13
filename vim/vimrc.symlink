@@ -28,6 +28,7 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'bling/vim-bufferline'
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'jnwhiteh/vim-golang'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'evanmiller/nginx-vim-syntax'
 NeoBundle 'altercation/vim-colors-solarized'
@@ -87,12 +88,16 @@ let g:airline_theme='solarized'
 
 " syntastic
 let g:syntastic_python_python_exe = 'python3'
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_check_on_open=0
 let g:syntastic_enable_signs=1
 let g:syntastic_mode_map = { 'mode': 'active' }
 "make *.md act as *.markdown
 au BufRead,BufNewFile *.md set filetype=markdown
 
+autocmd FileType ruby :setlocal sw=2 ts=2 sts=2 " Two spaces for Ruby files "
+autocmd FileType markdown :setlocal sw=2 ts=2 sts=2 " Two spaces for Markdown files "
 
 "map russian keys
 set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>

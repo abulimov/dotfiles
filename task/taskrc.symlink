@@ -28,3 +28,9 @@ dateformat=Y-M-D
 dateformat.annotation=[Y-M-D]
 dateformat.report=Y-M-D
 weekstart=monday
+
+taskd.server=mail.bulimov.ru:53589
+taskd.certificate=~/.task/abulimov.cert.pem
+taskd.key=~/.task/abulimov.key.pem
+taskd.ca=~/.task/ca.cert.pem
+taskd.credentials=Main\/Alexander Bulimov\/f5f5feba-3209-4300-846b-0b118c3edc0f
