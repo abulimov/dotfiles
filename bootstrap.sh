@@ -165,9 +165,14 @@ install_konsole_solarized_scheme() {
   elif [ -d "$HOME/.kde" ]; then
     DIR="$HOME/.kde"
   else
-    exit 3
+    info 'No KDE4 found, skipping konsole Solarized colorscheme setup'
+    return
   fi
   DIR+="/share/apps/konsole"
+  if [ ! -d "$DIR" ]; then
+    info 'No installed Konsole found, skipping konsole Solarized colorscheme setup'
+    return
+  fi
   dark_dest="$DIR/Solarized Dark.colorscheme"
   dark_url="https://raw.github.com/phiggins/konsole-colors-solarized/master/Solarized Dark.colorscheme"
   light_dest="$DIR/Solarized Light.colorscheme"
