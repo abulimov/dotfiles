@@ -190,6 +190,28 @@ install_konsole_solarized_scheme() {
   fi
 }
 
+install_tpm() {
+  if [ -d "$HOME/.tmux/plugins/tpm" ]; then
+    success "found tpm"
+  else
+    user "install tpm? [ynq] "
+    read -n 1 choise
+    case "$choise" in
+      y )
+        info "installing tpm"
+        mkdir -p "$HOME/.tmux/plugins"
+        git clone https://github.com/tmux-plugins/tpm "$HOME~/.tmux/plugins/tpm"
+        ;;
+      q )
+        exit
+        ;;
+      * )
+        info "skipping tmp, you will need to change ~/.tmux.conf"
+        ;;
+    esac
+  fi
+}
+
 install_vim_neobundle() {
   if [ -d "$HOME/.vim/bundle/neobundle.vim" ]; then
     success "found neobundle"
@@ -282,6 +304,7 @@ switch_to_zsh
 install_my_zsh_theme "$zsh_theme"
 install_konsole_solarized_scheme
 install_vim_neobundle
+install_tpm
 install_dotfiles
 
 echo 'done!'

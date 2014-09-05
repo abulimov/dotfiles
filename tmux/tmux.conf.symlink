@@ -1,26 +1,36 @@
-set -g base-index 1
-setw -g mode-keys vi
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
-set -g set-titles on                                    # Разрешить смену заголовков в оконном менеджере
-set -g set-titles-string "tmux.#I.#W"                   # Формат строки заголовка
+# List of plugins
+# Supports `github_username/repo` or full git URLs
+set -g @tpm_plugins "              \
+  tmux-plugins/tpm                 \
+  tmux-plugins/tmux-sensible       \
+  tmux-plugins/tmux-resurrect      \
+  tmux-plugins/tmux-pain-control   \
+  tmux-plugins/tmux-yank           \
+  tmux-plugins/tmux-copycat        \
+  tmux-plugins/tmux-open           \
+"
+# Other examples:
+# github_username/plugin_name    \
+# git@github.com/user/plugin     \
+# git@bitbucket.com/user/plugin  \
+
+# initializes TMUX plugin manager
+run-shell ~/.tmux/plugins/tpm/tpm
+
+# enable restoring of vim sessions by tmux-resurrect
+set -g @resurrect-strategy-vim "session"
+
+set -g base-index 1                                     # Начать отсчет окон с 1
 set -g bell-action any                                  # Следить за активностью на всех окнах
 
 setw -g monitor-activity on                             # Информировать когда есть активность в окнах
 set -g visual-activity on                               # Показывать статусное сообщение при активности в каком либо окне
+setw -g mode-mouse on                                   # Разрешить выделение мышью
+
+# настройки клавиш
 bind-key S set-window-option synchronize-panes
-set-option -g default-terminal "screen-256color"
-setw -g mode-mouse on
-set-option -g mouse-select-pane on
 unbind [
 bind Escape copy-mode
 unbind p
 bind p paste-buffer
 bind-key -t vi-copy 'v' begin-selection
-bind-key -t vi-copy 'y' copy-selection
-set-option -sg escape-time 50
-bind C-c run 'tmux save-buffer - | xclip -i -selection primary'
-bind C-v run "tmux set-buffer -- \"$(xclip -o -selection primary)\"; tmux paste-buffer"
-set -g terminal-overrides 'xterm*:smcup@:rmcup@'

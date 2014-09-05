@@ -25,6 +25,7 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'tpope/vim-sensible'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-obsession'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'bling/vim-bufferline'
 NeoBundle 'scrooloose/syntastic'
