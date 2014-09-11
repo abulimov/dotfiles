@@ -4,7 +4,7 @@
 
 declare -r ROOT=`dirname $(readlink -f $0)`
 
-zsh_theme="lazywolf"
+fish_theme="lazywolf"
 
 info () {
   printf " [ \033[00;34m..\033[0m ] $1\n"
@@ -68,59 +68,66 @@ wget_file () {
 }
 
 
-switch_to_zsh() {
-  if [[ "$SHELL" = *zsh ]]; then
-    success "using zsh"
+switch_to_fish() {
+  if [[ "$SHELL" = *fish ]]; then
+    success "using fish"
   else
-    user "switch to zsh? (recommended) [ynq] "
+    user "switch to fish? (recommended) [ynq] "
     read -n 1 choise
     case "$choise" in
       y )
-        info "switching to zsh"
-        chsh -s `which zsh`
+        info "switching to fish"
+        chsh -s `which fish`
         ;;
       q )
         exit
         ;;
       * )
-        info "skipping zsh"
+        info "skipping fish"
         ;;
     esac
   fi
 }
 
-install_oh_my_zsh() {
-  if [ -d "$HOME/.oh-my-zsh" ]; then
-    success "found ~/.oh-my-zsh"
+install_oh_my_fish() {
+  if [ -d "$HOME/.oh-my-fish" ]; then
+    success "found ~/.oh-my-fish"
   else
-    user "install oh-my-zsh? [ynq] "
+    user "install oh-my-fish? [ynq] "
     read -n 1 choise
     case "$choise" in
       y )
-        info "installing oh-my-zsh"
-        git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
+        info "installing oh-my-fish"
+        git clone https://github.com/bpinto/oh-my-fish.git "$HOME/.oh-my-fish"
         ;;
       q )
         exit
         ;;
       * )
-        info "skipping oh-my-zsh, you will need to change ~/.zshrc"
+        info "skipping oh-my-fish, you will need to change ~/.config/fish/config.fish"
         ;;
     esac
   fi
 }
 
-install_my_zsh_theme() {
+install_my_fish_theme() {
   theme="$1"
-  src="$ROOT/zsh/$theme.zsh-theme"
-  dest="$HOME/.oh-my-zsh/themes/$theme.zsh-theme"
+  src="$ROOT/fish/${theme}_theme.fish"
+  dest_dir="$HOME/.oh-my-fish/themes/$theme"
+  dest="${dest_dir}/fish_prompt.fish"
   if [ ! -f "$src" ]; then
     fail "no source file $src"
     exit
   fi
-  if [ -d "$HOME/.oh-my-zsh/themes" ]; then
-    info "found ~/.oh-my-zsh/themes"
+  if [ -d "$HOME/.oh-my-fish/themes" ]; then
+    info "found ~/.oh-my-fish/themes"
+    if [ ! -d "$dest_dir" ]; then
+        mkdir -p "$dest_dir"
+    fi
     if [ -f "$dest" ]; then
+      overwrite=false
+      backup=false
+      skip=false
       user "File already exists: `basename $src`, what do you want to do? [s]kip, [o]verwrite, [b]ackup?"
       read -n 1 action
 
@@ -158,35 +165,55 @@ install_my_zsh_theme() {
   fi
 }
 
-install_konsole_solarized_scheme() {
-  info 'installing Konsole Solarized colorschemes'
-  if [ -d "$HOME/.kde4" ]; then
-    DIR="$HOME/.kde4"
-  elif [ -d "$HOME/.kde" ]; then
-    DIR="$HOME/.kde"
-  else
-    info 'No KDE4 found, skipping konsole Solarized colorscheme setup'
-    return
+install_my_fish_config() {
+  theme="$1"
+  src="$ROOT/fish/config.fish"
+  dest_dir="$HOME/.config/fish/"
+  dest="${dest_dir}/config.fish"
+  if [ ! -f "$src" ]; then
+    fail "no source file $src"
+    exit
   fi
-  DIR+="/share/apps/konsole"
-  if [ ! -d "$DIR" ]; then
-    info 'No installed Konsole found, skipping konsole Solarized colorscheme setup'
-    return
+  if [ ! -d "$dest_dir" ]; then
+    mkdir -p "$dest_dir"
   fi
-  dark_dest="$DIR/Solarized Dark.colorscheme"
-  dark_url="https://raw.github.com/phiggins/konsole-colors-solarized/master/Solarized Dark.colorscheme"
-  light_dest="$DIR/Solarized Light.colorscheme"
-  light_url="https://raw.github.com/phiggins/konsole-colors-solarized/master/Solarized Light.colorscheme"
+  if [ -f "$dest" ]; then
+    overwrite=false
+    backup=false
+    skip=false
+    user "File already exists: `basename $src`, what do you want to do? [s]kip, [o]verwrite, [b]ackup?"
+    read -n 1 action
 
-  if [ ! -f "$dark_dest" ]; then
-    wget_file "$dark_url" "$dark_dest"
+    case "$action" in
+      o )
+        overwrite=true;;
+      b )
+        backup=true;;
+      s )
+        skip=true;;
+      * )
+        ;;
+    esac
+    if [ "$overwrite" == "true" ] 
+    then
+      rm -rf $dest
+      success "removed $dest"
+    fi
+
+    if [ "$backup" == "true" ]
+    then
+      mv $dest $dest\.backup
+      success "moved $dest to $dest.backup"
+    fi
+
+    if [ "$skip" == "false" ]
+    then
+      link_files $src $dest
+    else
+      success "skipped $src"
+    fi
   else
-    success "found $dark_dest"
-  fi
-  if [ ! -f "$light_dest" ]; then
-    wget_file "$light_url" "$light_dest"
-  else
-    success "found $light_dest"
+    link_files "$src" "$dest"
   fi
 }
 
@@ -299,10 +326,10 @@ done
 }
 
 setup_gitconfig
-install_oh_my_zsh
-switch_to_zsh
-install_my_zsh_theme "$zsh_theme"
-install_konsole_solarized_scheme
+install_oh_my_fish
+switch_to_fish
+install_my_fish_theme "$fish_theme"
+install_my_fish_config
 install_vim_neobundle
 install_tpm
 install_dotfiles
