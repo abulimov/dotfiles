@@ -41,8 +41,11 @@ filetype plugin indent on     " Required!
 " Installation check.
 NeoBundleCheck
 
+" Set leader to space
+let mapleader = ' '
+
 "speell check
-nnoremap <space>s :setlocal spell spelllang=ru,en<cr>
+nnoremap <leader>s :setlocal spell spelllang=ru,en<cr>
 
 " sytastic
 let g:haddock_browser = "/usr/bin/firefox"
@@ -51,12 +54,23 @@ nnoremap <C-g> :SyntasticCheck<CR>
 
 "Unite
 let g:unite_source_history_yank_enable=1
-nnoremap <C-p> :Unite file_rec/async -start-insert<cr>
-nnoremap <space>/ :Unite grep:.<cr>
-nnoremap <space>y :Unite history/yank<cr>
-nnoremap <space>n :bn<cr>
-nnoremap <space>p :bp<cr>
-nnoremap <space>d :bd<cr>
+nnoremap <leader>p :Unite file_rec/async -start-insert<cr>
+nnoremap <leader>/ :Unite grep:.<cr>
+nnoremap <leader>y :Unite history/yank<cr>
+nnoremap <leader>s :Unite -quick-match buffer<cr>
+
+" Using buffers, not ta
+" My preference with using buffers. See `:h hidden` for more details
+set hidden
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>d :bp <BAR> bd #<CR>
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
 
 " color theme
 colorscheme jellybeans
@@ -84,7 +98,13 @@ match ExtraWhitespace /\t/
 autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
 
 " airline
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+" Enable syntasic
 let g:airline_enable_syntastic=1
+" Set theme
 let g:airline_theme='jellybeans'
 
 " syntastic
