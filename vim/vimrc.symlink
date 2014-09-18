@@ -45,7 +45,7 @@ NeoBundleCheck
 let mapleader = ' '
 
 "speell check
-nnoremap <leader>s :setlocal spell spelllang=ru,en<cr>
+nnoremap <leader>S :setlocal spell spelllang=ru,en<cr>
 
 " sytastic
 let g:haddock_browser = "/usr/bin/firefox"
