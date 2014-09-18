@@ -26,3 +26,8 @@ if test -d ~/ansible-lint
     set -x PATH ~/ansible-lint/bin $PATH
     set -x PYTHONPATH $PYTHONPATH ~/ansible-lint/lib
 end
+
+if test -d ~/.gem
+    set -x GEM_PATH ~/.gem
+    set -x PATH ~/.gem/bin $PATH
+end
