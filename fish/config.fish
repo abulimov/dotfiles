@@ -22,12 +22,19 @@ if test -e ~/.autojump/etc/profile.d/autojump.fish
     . ~/.autojump/etc/profile.d/autojump.fish
 end
 
-if test -d ~/ansible-lint
-    set -x PATH ~/ansible-lint/bin $PATH
-    set -x PYTHONPATH $PYTHONPATH ~/ansible-lint/lib
+set -x GEM_PATH "$HOME/.gem"
+
+set python_paths "$HOME/ansible-lint/lib" "$HOME/pelican-plugins"
+set bin_paths "$HOME/ansible-lint/bin" "$HOME/.local/bin" "$GEM_PATH/bin"
+
+for p in $python_paths
+    if test -d "$p"
+        set -x PYTHONPATH "$p" $PYTHONPATH
+    end
 end
 
-if test -d ~/.gem
-    set -x GEM_PATH ~/.gem
-    set -x PATH ~/.gem/bin $PATH
+for p in $bin_paths
+    if test -d "$p"
+        set -x PATH "$p" $PATH 
+    end
 end
