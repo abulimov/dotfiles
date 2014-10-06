@@ -1,0 +1,3 @@
+set defsearch=duckduckgo
+
+command! wallabag :open javascript:(function(){var%20url%20=%20location.href%20||%20url;window.open('https://read.bulimov.ru/?action=add&url='%20+%20btoa(url),'_self');})();void(0);
