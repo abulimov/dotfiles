@@ -13,7 +13,9 @@ set fish_greeting
 # set fish_plugins autojump
 
 # Path to your custom folder (default path is $FISH/custom)
-#set fish_custom $HOME/dotfiles/oh-my-fish
+set fish_custom $HOME/dotfiles/fish
+. $fish_custom/ssh_agent.fish
+start_ssh_agent
 
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish
