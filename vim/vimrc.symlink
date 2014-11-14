@@ -109,7 +109,7 @@ let g:airline_theme='jellybeans'
 
 " syntastic
 let g:syntastic_python_python_exe = 'python3'
-let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_checkers = ['pylint', 'pep8']
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_check_on_open=0
 let g:syntastic_enable_signs=1
