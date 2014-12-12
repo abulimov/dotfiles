@@ -4,8 +4,6 @@
 
 declare -r ROOT=`dirname $(readlink -f $0)`
 
-fish_theme="lazywolf"
-
 info () {
   printf " [ \033[00;34m..\033[0m ] $1\n"
 }
@@ -68,154 +66,48 @@ wget_file () {
 }
 
 
-switch_to_fish() {
-  if [[ "$SHELL" = *fish ]]; then
-    success "using fish"
+switch_to_zsh() {
+  if [[ "$SHELL" = *zsh ]]; then
+    success "using zsh"
   else
-    user "switch to fish? (recommended) [ynq] "
+    user "switch to zsh? (recommended) [ynq] "
     read -n 1 choise
     case "$choise" in
       y )
-        info "switching to fish"
-        chsh -s `which fish`
+        info "switching to zsh"
+        chsh -s `which zsh`
         ;;
       q )
         exit
         ;;
       * )
-        info "skipping fish"
+        info "skipping zsh"
         ;;
     esac
   fi
 }
 
-install_oh_my_fish() {
-  if [ -d "$HOME/.oh-my-fish" ]; then
-    success "found ~/.oh-my-fish"
+install_zsh_antigen() {
+  if [ -d "$HOME/.antigen" ]; then
+    success "found ~/.antigen"
   else
-    user "install oh-my-fish? [ynq] "
+    user "install zsh antigen? [ynq] "
     read -n 1 choise
     case "$choise" in
       y )
-        info "installing oh-my-fish"
-        git clone https://github.com/bpinto/oh-my-fish.git "$HOME/.oh-my-fish"
+        info "installing zsh antigen"
+        git clone https://github.com/zsh-users/antigen.git "$HOME/antigen"
         ;;
       q )
         exit
         ;;
       * )
-        info "skipping oh-my-fish, you will need to change ~/.config/fish/config.fish"
+        info "skipping zsh antigen, you will need to change ~/.zshrc"
         ;;
     esac
   fi
 }
 
-install_my_fish_theme() {
-  theme="$1"
-  src="$ROOT/fish/${theme}_theme.fish"
-  dest_dir="$HOME/.oh-my-fish/themes/$theme"
-  dest="${dest_dir}/fish_prompt.fish"
-  if [ ! -f "$src" ]; then
-    fail "no source file $src"
-    exit
-  fi
-  if [ -d "$HOME/.oh-my-fish/themes" ]; then
-    info "found ~/.oh-my-fish/themes"
-    if [ ! -d "$dest_dir" ]; then
-        mkdir -p "$dest_dir"
-    fi
-    if [ -f "$dest" ]; then
-      overwrite=false
-      backup=false
-      skip=false
-      user "File already exists: `basename $src`, what do you want to do? [s]kip, [o]verwrite, [b]ackup?"
-      read -n 1 action
-
-      case "$action" in
-        o )
-          overwrite=true;;
-        b )
-          backup=true;;
-        s )
-          skip=true;;
-        * )
-          ;;
-      esac
-      if [ "$overwrite" == "true" ] 
-      then
-        rm -rf $dest
-        success "removed $dest"
-      fi
-
-      if [ "$backup" == "true" ]
-      then
-        mv $dest $dest\.backup
-        success "moved $dest to $dest.backup"
-      fi
-
-      if [ "$skip" == "false" ]
-      then
-        link_files $src $dest
-      else
-        success "skipped $src"
-      fi
-    else
-      link_files "$src" "$dest"
-    fi
-  fi
-}
-
-install_my_fish_config() {
-  theme="$1"
-  src="$ROOT/fish/config.fish"
-  dest_dir="$HOME/.config/fish/"
-  dest="${dest_dir}/config.fish"
-  if [ ! -f "$src" ]; then
-    fail "no source file $src"
-    exit
-  fi
-  if [ ! -d "$dest_dir" ]; then
-    mkdir -p "$dest_dir"
-  fi
-  if [ -f "$dest" ]; then
-    overwrite=false
-    backup=false
-    skip=false
-    user "File already exists: `basename $src`, what do you want to do? [s]kip, [o]verwrite, [b]ackup?"
-    read -n 1 action
-
-    case "$action" in
-      o )
-        overwrite=true;;
-      b )
-        backup=true;;
-      s )
-        skip=true;;
-      * )
-        ;;
-    esac
-    if [ "$overwrite" == "true" ] 
-    then
-      rm -rf $dest
-      success "removed $dest"
-    fi
-
-    if [ "$backup" == "true" ]
-    then
-      mv $dest $dest\.backup
-      success "moved $dest to $dest.backup"
-    fi
-
-    if [ "$skip" == "false" ]
-    then
-      link_files $src $dest
-    else
-      success "skipped $src"
-    fi
-  else
-    link_files "$src" "$dest"
-  fi
-}
 
 install_tpm() {
   if [ -d "$HOME/.tmux/plugins/tpm" ]; then
@@ -350,10 +242,8 @@ done
 }
 
 setup_gitconfig
-install_oh_my_fish
-switch_to_fish
-install_my_fish_theme "$fish_theme"
-install_my_fish_config
+install_zsh
+switch_to_zsh
 install_autojump
 install_vim_neobundle
 install_tpm
