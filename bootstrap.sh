@@ -2,7 +2,13 @@
 #
 # bootstrap dotfiles
 
-declare -r ROOT=`dirname $(readlink -f $0)`
+if [ -x `which greadlink` ]; then
+  readlink=greadlink
+  # Use coreutils version on Mac
+else
+  readlink=readlink
+fi
+declare -r ROOT=`dirname $($readlink -f $0)`
 
 info () {
   printf " [ \033[00;34m..\033[0m ] $1\n"
@@ -119,7 +125,7 @@ install_vim_neobundle() {
       y )
         info "installing nebundle"
         mkdir -p "$HOME/.vim/bundle"
-        git clone git://github.com/Shougo/neobundle.vim "$HOME/.vim/bundle/neobundle.vim"
+        git clone https://github.com/Shougo/neobundle.vim "$HOME/.vim/bundle/neobundle.vim"
         mkdir -p "$HOME/.vim/backups"
         ;;
       q )
@@ -141,7 +147,7 @@ install_autojump() {
     case "$choise" in
       y )
         info "installing autojump"
-        git clone git://github.com/joelthelion/autojump "$HOME/autojump"
+        git clone https://github.com/joelthelion/autojump "$HOME/autojump"
         cd "$HOME/autojump"
         ./install.py
         cd -
