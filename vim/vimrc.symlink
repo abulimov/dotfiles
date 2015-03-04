@@ -35,6 +35,8 @@ NeoBundle 'evanmiller/nginx-vim-syntax'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'dag/vim-fish'
 NeoBundle 'chase/vim-ansible-yaml'
+NeoBundle 'robbles/logstash.vim'
+NeoBundle 'Icinga/icinga2', {'rtp': 'tools/syntax/vim/'}
 
 filetype plugin indent on     " Required!
 
@@ -120,6 +122,8 @@ au BufRead,BufNewFile *.md set filetype=markdown
 
 autocmd FileType ruby :setlocal sw=2 ts=2 sts=2 " Two spaces for Ruby files "
 autocmd FileType yaml :setlocal sw=2 ts=2 sts=2 " Two spaces for Yaml files "
+autocmd FileType ansible :setlocal sw=2 ts=2 sts=2 " Two spaces for Ansible files "
+autocmd FileType logstash :setlocal sw=2 ts=2 sts=2 " Two spaces for Logstash files "
 autocmd FileType sh :setlocal sw=2 ts=2 sts=2 " Two spaces for Shell files "
 
 "map russian keys
