@@ -29,3 +29,4 @@ set -U -x GEM_PATH "$HOME/.gem"
 
 set -U -x PYTHONPATH "$HOME/ansible-lint/lib" "$HOME/pelican-plugins"
 set -U fish_user_paths "$HOME/ansible-lint/bin" "$HOME/.local/bin" "$GEM_PATH/bin"
+alias vim nvim
