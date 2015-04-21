@@ -2,13 +2,7 @@
 #
 # bootstrap dotfiles
 
-if [ -x `which greadlink` ]; then
-  readlink=greadlink
-  # Use coreutils version on Mac
-else
-  readlink=readlink
-fi
-declare -r ROOT=`dirname $($readlink -f $0)`
+declare -r ROOT=$(cd "`dirname "$0"`" && pwd)
 
 info () {
   printf " [ \033[00;34m..\033[0m ] $1\n"
