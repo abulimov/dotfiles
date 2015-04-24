@@ -13,7 +13,7 @@ if [ -f $SSH_ENV ]
   . $SSH_ENV > /dev/null
 end
 kill -0 $SSH_AGENT_PID > /dev/null
-if [ $status -ne 0 ]
+if begin; [ $status -ne 0 ]; or [ -z "$SSH_AGENT_PID" ]; end
   echo "Initializing new SSH agent ..."
   ssh-agent -c | sed 's/^echo/#echo/' > $SSH_ENV
   echo "succeeded"
@@ -28,5 +28,5 @@ end
 set -U -x GEM_PATH "$HOME/.gem"
 
 set -U -x PYTHONPATH "$HOME/ansible-lint/lib" "$HOME/pelican-plugins"
-set -U fish_user_paths "$HOME/ansible-lint/bin" "$HOME/.local/bin" "$GEM_PATH/bin"
-alias vim nvim
+set -U fish_user_paths "$HOME/ansible-lint/bin" "$HOME/.local/bin" "$GEM_PATH/bin" "$HOME/go/bin"
+set -U -x GOPATH "$HOME/go"
