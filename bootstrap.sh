@@ -132,30 +132,6 @@ install_vim_neobundle() {
   fi
 }
 
-install_autojump() {
-  if [ -d "$HOME/.autojump/" ]; then
-    success "found autojump"
-  else
-    user "install autojump? [ynq] "
-    read -n 1 choise
-    case "$choise" in
-      y )
-        info "installing autojump"
-        git clone https://github.com/joelthelion/autojump "$HOME/autojump"
-        cd "$HOME/autojump"
-        ./install.py
-        cd -
-        ;;
-      q )
-        exit
-        ;;
-      * )
-        info "skipping autojump"
-        ;;
-    esac
-  fi
-}
-
 install_my_fish_config() {
   src="$ROOT/fish/config.fish"
   dest_dir="$HOME/.config/fish/"
@@ -270,10 +246,8 @@ done
 setup_gitconfig
 install_my_fish_config
 switch_to_fish
-install_autojump
 install_vim_neobundle
 install_tpm
 install_dotfiles
 
 echo 'done!'
-
