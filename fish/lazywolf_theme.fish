@@ -22,6 +22,11 @@ function fish_prompt
   else
       set arrow "$red➜ "
   end
+  if test $CMD_DURATION
+    # Show duration of the last command in seconds
+    set -l duration (echo "$CMD_DURATION 1000" | awk '{printf "%.1fs", $1 / $2}')
+    set arrow "$arrow($duration) "
+  end
   set -l cwd $cyan(prompt_pwd)
 
   if [ (_git_branch_name) ]
@@ -39,3 +44,8 @@ function fish_prompt
   echo -n -s $arrow $cwd $git_info $normal ' '
 end
 
+function fish_right_prompt
+  set_color $fish_color_autosuggestion ^/dev/null; or set_color 555
+  date "+%H:%M:%S"
+  set_color normal
+end
