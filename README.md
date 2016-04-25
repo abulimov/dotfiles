@@ -6,7 +6,10 @@
 
   ```bash
   $ # optionally set up gemrc:
-  $ touch ~/.gemrc && echo 'gem: --user-install --no-document -n~/.local/bin' >> ~/.gemrc && export PATH=$HOME/.local/bin:$PATH
+  $ touch ~/.gemrc && \
+    echo 'gem: --user-install --no-document -n~/.local/bin' >> ~/.gemrc && \
+    mkdir -p "$HOME/.local/bin" && \
+    export PATH=$HOME/.local/bin:$PATH
   $ gem install homesick
   ```
 
@@ -22,6 +25,11 @@
   [user]
      name = Foo Example
      email = foo@example.com
+  [credential]
+     # OS X
+	 helper = osxkeychain
+     # Linux
+     # helper = cache
   ```
 
 4. Symlinks all dotfiles:

@@ -27,6 +27,7 @@ vimPluginsDir = File.join(Dir.home, '.vim/bundle')
 vundleDir = File.join(vimPluginsDir, 'Vundle.vim')
 unless Dir.exist?(vundleDir)
     system('mkdir', '-p', vimPluginsDir) &&
+    system('mkdir', '-p', File.join(Dir.home, '.vim/backups')) &&
     system('git', 'clone', 'https://github.com/VundleVim/Vundle.vim.git', vundleDir)
     $?.success? ? puts("#{ok} installed vundle") : puts("#{bad} failed to clone vundle")
 else
