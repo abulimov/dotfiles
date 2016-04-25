@@ -1,15 +1,7 @@
-# Sample gitconfig
-#
-
 [hub]
         protocol = https
-[user]
-        name = AUTHORNAME
-        email = AUTHOREMAIL
-[credential]
-        helper = GIT_CREDENTIAL_HELPER
-[alias]
-        co = checkout
+[include]
+        path = ~/.gitconfig.local
 [color]
         diff = auto
         status = auto
@@ -18,6 +10,8 @@
 [core]
         excludesfile = ~/.gitignore
         editor = vim
+        autocrlf = input
+        safecrlf = true
 [apply]
         whitespace = nowarn
 [mergetool]

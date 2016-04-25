@@ -1,0 +1,39 @@
+"*":
+  core:
+    themes: [
+      "native-ui"
+      "base16-tomorrow-dark-theme"
+    ]
+  editor:
+    fontSize: 18
+    invisibles: {}
+    tabLength: 4
+  "exception-reporting":
+    userId: "c0ffd75e-737c-c288-e635-9e4a7f21d1ba"
+  "gometalinter-linter":
+    args: [
+      "-t"
+      "--disable=gotype"
+      "--vendor"
+      "--fast"
+      "--json"
+      "./..."
+    ]
+  "linter-haproxy":
+    executableArgs: "--json, --ignore={%, --run-haproxy=false"
+  minimap:
+    plugins:
+      "git-diff": true
+      "git-diffDecorationsZIndex": 0
+      linter: true
+      linterDecorationsZIndex: 0
+  tabs:
+    enableVcsColoring: true
+  welcome:
+    showOnStartup: false
+".coffee.source":
+  editor:
+    tabLength: 2
+".js.source":
+  editor:
+    tabLength: 2

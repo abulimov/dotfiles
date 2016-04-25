@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+ok = "\r\033[2K [ \033[00;32mOK\033[0m ]"
+bad = "\r\033[2K [\033[0;31mFAIL\033[0m]"
+
+# prezto
+preztoDir = File.join(Dir.home, '.zprezto')
+unless Dir.exist?(preztoDir)
+    system('git', 'clone', '--recursive', 'https://github.com/sorin-ionescu/prezto.git', preztoDir)
+    $?.success? ? puts("#{ok} installed prezto") : puts("#{bad} failed to clone prezto")
+else
+    puts("#{ok} prezto already installed")
+end
+
+# tmux plugin manager
+tmuxPluginsDir = File.join(Dir.home, '.tmux/plugins')
+tpmDir = File.join(tmuxPluginsDir, 'tpm')
+unless Dir.exist?(tpmDir)
+    system('mkdir', '-p', tmuxPluginsDir) &&
+    system('git', 'clone', 'https://github.com/tmux-plugins/tpm', tpmDir)
+    $?.success? ? puts("#{ok} installed tpm") : puts("#{bad} failed to clone tpm")
+else
+    puts("#{ok} tmp already installed")
+end
+
+# Vundle
+vimPluginsDir = File.join(Dir.home, '.vim/bundle')
+vundleDir = File.join(vimPluginsDir, 'Vundle.vim')
+unless Dir.exist?(vundleDir)
+    system('mkdir', '-p', vimPluginsDir) &&
+    system('git', 'clone', 'https://github.com/VundleVim/Vundle.vim.git', vundleDir)
+    $?.success? ? puts("#{ok} installed vundle") : puts("#{bad} failed to clone vundle")
+else
+    puts("#{ok} vundle already installed")
+end
+# Install Vim plugins via Vundle
+system("vim +PluginInstall +qall")
+$?.success? ? puts("#{ok} installed vim plugins") : puts("#{bad} failed to install vim plugins")
