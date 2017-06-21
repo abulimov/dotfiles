@@ -10,7 +10,14 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
-EDITOR=vim
+#
+# alias vim to nvim if we have it installed
+if command -v nvim >/dev/null 2>&1; then
+    EDITOR=nvim
+    alias vim=nvim
+else
+    EDITOR=vim
+fi
 export GOPATH="$HOME/go/"
 local -a python_paths
 local -a bin_paths
