@@ -40,6 +40,7 @@ nnoremap <C-g> :Neomake<CR>
 
 " color theme
 colorscheme jellybeans
+let g:rehash256 = 1
 
 " general behavior
 set hidden
@@ -82,7 +83,7 @@ let g:tagbar_type_markdown = {
     \ ]
     \ }
 nmap <leader>T :TagbarToggle<CR>
-autocmd FileType python,cpp,c,go :TagbarToggle
+autocmd FileType python,cpp,c,go :TagbarOpen
 
 " Autoformat
 nmap <leader>F :Autoformat<CR>

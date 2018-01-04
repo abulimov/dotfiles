@@ -22,17 +22,14 @@ else
     puts("#{ok} tmp already installed")
 end
 
-# Vundle
-vimPluginsDir = File.join(Dir.home, '.vim/bundle')
-vundleDir = File.join(vimPluginsDir, 'Vundle.vim')
-unless Dir.exist?(vundleDir)
-    system('mkdir', '-p', vimPluginsDir) &&
+vimPlugPath = File.join(Dir.home, '/.local/share/nvim/site/autoload/plug.vim')
+unless File.exist?(vimPlugPath)
     system('mkdir', '-p', File.join(Dir.home, '.vim/backups')) &&
-    system('git', 'clone', 'https://github.com/VundleVim/Vundle.vim.git', vundleDir)
-    $?.success? ? puts("#{ok} installed vundle") : puts("#{bad} failed to clone vundle")
+    system('curl', '-fLo', vimPlugPath, '--create-dirs', 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+    $?.success? ? puts("#{ok} installed vim-plug") : puts("#{bad} failed to fetch vim-plug")
 else
-    puts("#{ok} vundle already installed")
+    puts("#{ok} vim-plug already installed")
 end
-# Install Vim plugins via Vundle
-system("vim +PluginInstall +qall")
-$?.success? ? puts("#{ok} installed vim plugins") : puts("#{bad} failed to install vim plugins")
+# Install Vim plugins via vim-plug
+system("nvim +PlugInstall +qall")
+$?.success? ? puts("#{ok} installed neovim plugins") : puts("#{bad} failed to install neovim plugins")

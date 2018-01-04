@@ -107,9 +107,9 @@ function prompt_lazywolf_setup {
   add-zsh-hook precmd prompt_lazywolf_precmd
 
   # Set editor-info parameters.
-  zstyle ':prezto:module:editor:info:keymap:primary' format ' %B%(?:%F{2}:%F{1})❯%f%b'
-  zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format ' %F{3}♺%f'
-  zstyle ':prezto:module:editor:info:keymap:alternate' format ' %B%F{2}❮%f%b'
+  zstyle ':prezto:module:editor:info:keymap:primary' format ' %B%(?:%F{2}:%F{1})>%f%b'
+  zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format ' %F{3}>%f'
+  zstyle ':prezto:module:editor:info:keymap:alternate' format ' %B%F{2}>%f%b'
 
   # Set git-info parameters.
   zstyle ':prezto:module:git:info' verbose 'yes'

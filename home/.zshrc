@@ -38,3 +38,5 @@ done
 
 # added by travis gem
 [ -f /Users/abulimov/.travis/travis.sh ] && source /Users/abulimov/.travis/travis.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
