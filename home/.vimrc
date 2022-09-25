@@ -1,30 +1,18 @@
 set nocompatible       " Be iMproved
 filetype off           " required
 
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/Vundle.vim
-endif
+" vim-plug
+call plug#begin()
 
-call vundle#begin(expand('~/.vim/bundle/'))
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-obsession'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'nanotech/jellybeans.vim'
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" My Bundles here:
-"
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-obsession'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/syntastic'
-Plugin 'jnwhiteh/vim-golang'
-Plugin 'evanmiller/nginx-vim-syntax'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'chase/vim-ansible-yaml'
-
-call vundle#end()             " required
+call plug#end()
 filetype plugin indent on     " required
 
 " Set leader to space

@@ -22,7 +22,7 @@ else
     puts("#{ok} tmp already installed")
 end
 
-vimPlugPath = File.join(Dir.home, '/.local/share/nvim/site/autoload/plug.vim')
+vimPlugPath = File.join(Dir.home, '/.vim/autoload/plug.vim')
 unless File.exist?(vimPlugPath)
     system('mkdir', '-p', File.join(Dir.home, '.vim/backups')) &&
     system('curl', '-fLo', vimPlugPath, '--create-dirs', 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
@@ -31,5 +31,5 @@ else
     puts("#{ok} vim-plug already installed")
 end
 # Install Vim plugins via vim-plug
-system("nvim +PlugInstall +qall")
-$?.success? ? puts("#{ok} installed neovim plugins") : puts("#{bad} failed to install neovim plugins")
+system("vim +PlugInstall +qall")
+$?.success? ? puts("#{ok} installed vim plugins") : puts("#{bad} failed to install vim plugins")
