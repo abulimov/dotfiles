@@ -22,7 +22,7 @@ export GOPATH="$HOME/go/"
 local -a python_paths
 local -a bin_paths
 python_paths=("$HOME/github/pelican-plugins")
-bin_paths=("$GOPATH/bin" "$HOME/.local/bin")
+bin_paths=("/snap/bin" "$GOPATH/bin" "$HOME/.local/bin" "$HOME/.local/ltex-ls-16.0.0/bin")
 
 for p in $python_paths; do
     if [ -d "$p" ]; then
@@ -36,7 +36,8 @@ for p in $bin_paths; do
     fi
 done
 
-# added by travis gem
-[ -f /Users/abulimov/.travis/travis.sh ] && source /Users/abulimov/.travis/travis.sh
+[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+[ -f /usr/share/doc/fzf/examples/completion.zsh ] && source /usr/share/doc/fzf/examples/completion.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+fpath=($HOME/.homesick/repos/homeshick/completions $fpath)

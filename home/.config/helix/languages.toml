@@ -1,0 +1,9 @@
+[[language]]
+name = "markdown"
+language-servers = ["ltex-ls", "vale-ls"]
+
+[language-server.ltex-ls]
+config = { ltex.language = "en-GB" }
+
+[language-server.vale-ls]
+command = "vale-ls"

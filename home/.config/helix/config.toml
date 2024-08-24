@@ -1,0 +1,28 @@
+# theme
+theme = "catppuccin_mocha"
+
+[editor]
+text-width = 150
+# Show currently open buffers, only when more than one exists.
+bufferline = "multiple"
+# Highlight all lines with a cursor
+cursorline = true
+# Show a ruler at column 120
+rulers = [80, 120, 150]
+# Force the theme to show colors
+true-color = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.indent-guides]
+character = "╎"
+render = true
+
+[editor.lsp]
+# Disable automatically popups of signature parameter help
+auto-signature-help = false
+# Show LSP messages in the status line
+display-messages = true
