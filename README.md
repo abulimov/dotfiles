@@ -20,6 +20,8 @@
 	 helper = osxkeychain
      # Linux
      # helper = cache
+     # WSL
+     # helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
   ```
 
 4. Symlinks all dotfiles:

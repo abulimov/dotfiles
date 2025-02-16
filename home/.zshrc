@@ -11,10 +11,22 @@ fi
 
 fpath=( "$HOME/.zfunctions" $fpath )
 
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+# Clone antidote if necessary.
+if [[ ! -d ${ZDOTDIR:-$HOME}/.antidote ]]; then
+    git clone https://github.com/mattmc3/antidote ${ZDOTDIR:-$HOME}/.antidote
 fi
+
+# source antidote
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+# initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
+antidote load
+
+# enable prompt
+autoload -Uz promptinit && promptinit && prompt powerlevel10k
+
+# zsh-users/zsh-history-substring-search keybindings
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # Customize to your needs...
 #
@@ -28,7 +40,6 @@ fi
 export GOPATH="$HOME/go/"
 local -a python_paths
 local -a bin_paths
-python_paths=("$HOME/github/pelican-plugins")
 bin_paths=("/snap/bin" "$GOPATH/bin" "$HOME/.local/bin" "$HOME/.local/ltex-ls-16.0.0/bin")
 
 for p in $python_paths; do

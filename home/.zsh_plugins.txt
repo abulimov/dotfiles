@@ -1,0 +1,33 @@
+# .zsh_plugins.txt - antidote plugins file
+#
+
+# Completions
+mattmc3/ez-compinit
+zsh-users/zsh-completions kind:fpath path:src
+
+# Keybindings
+belak/zsh-utils path:editor
+
+# History
+belak/zsh-utils path:history
+
+# Editor
+belak/zsh-utils path:utility
+
+# Prompt
+# add to .zshrc `autoload -Uz promptinit && promptinit && prompt powerlevel10k`
+romkatv/powerlevel10k kind:fpath
+
+# syntax highlighting theme
+# run `fast-theme ~/.cache/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-catppuccin-SLASH-zsh-fsh/themes/catppuccin-mocha.ini`
+https://github.com/catppuccin/zsh-fsh kind:path path:themes
+
+# nice modern tools
+z-shell/zsh-eza
+Freed-Wu/zsh-help
+fdellwing/zsh-bat
+
+# Other Fish-like features
+zdharma-continuum/fast-syntax-highlighting  # Syntax highlighting
+zsh-users/zsh-autosuggestions               # Auto-suggestions
+zsh-users/zsh-history-substring-search      # Up/Down to search history
